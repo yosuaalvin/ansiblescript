@@ -27,7 +27,7 @@
       yum:
         name:
           - http
-          - sshd
+          - openssh-server
           - firewalld
         state: latest
       when: ansible_distribution == 'RedHat'
@@ -36,7 +36,7 @@
   tasks:
     - name: Install Development Tools when supported
       yum:
-        name: "@development_tools"
+        name: "@Development tools"
         state: present
         update_cache: yes
       when: ansible_distribution == 'RedHat'
