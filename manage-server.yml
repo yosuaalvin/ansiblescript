@@ -83,7 +83,7 @@
       loop:
         - httpd
         - firewalld
-        - openssh-server
+        - sshd
 - name: Using Custom-motd Role
   roles:
     - custom-motd
