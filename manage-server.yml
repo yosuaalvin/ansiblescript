@@ -6,8 +6,8 @@
   tasks:
     - name: Create user accounts
       user:
-         name: "{{ item.username }}"
-         groups: "{{ item.groups }}"
+        name: "{{ item.username }}"
+        groups: "{{ item.groups }}"
       loop: "{{ users }}"
 - name: Install package httpd,sshd,firewalld in host not in asia
   hosts: all:!asia
@@ -15,27 +15,27 @@
     - name: Install httpd,sshd,firewalld using yum when supported
       yum:
         name:
-		  - http
-		  - sshd
-		  - firewalld
+          - http
+          - sshd
+          - firewalld
         state: latest
       when: ansible_distribution == 'RedHat'
 - name: Install Development Tools for host contain servera or serverb
   hosts: ~(servera|serverb).*
   tasks:
-   - name: Install Development Tools when supported
-     yum: name={{ item }} state=present update_cache=yes
-     with_items:
-       - "@development_tools"
-	 when: ansible_distribution == 'RedHat'
+    - name: Install Development Tools when supported
+      yum: name={{ item }} state=present update_cache=yes
+        with_items:
+          - "@development_tools"
+      when: ansible_distribution == 'RedHat'
 - name: Turn off firewall for host contain serverc or serverd
   hosts: ~(serverc|serverd).*
   tasks:
-   - name: Stop and disable firewalld
-     service:
-       name: firewalld
-       state: stopped
-       enabled: False
+    - name: Stop and disable firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: False
 - name: Install package maria-db in development host
   hosts: development
   tasks:
@@ -46,7 +46,7 @@
       when: ansible_distribution == 'RedHat'
 - name: Install package tmux in production host
   hosts: development
-  tasks:
+  asks:
     - name: Install tmux where supported
       yum:
         name: tmux
@@ -55,13 +55,13 @@
 - name: Turn on httpd, firewalld, sshd in host not in production
   hosts: all:!production
   tasks:
-   - name: Stop and disable httpd, firewalld, sshd
-     service:
-       name:
-	     - httpd
-		 - firewalld
-		 - sshd
-       state: enables
-       enabled: True
+    - name: Stop and disable httpd, firewalld, sshd
+      service:
+        name:
+          - httpd
+          - firewalld
+          - sshd
+        state: enables
+        enabled: True
 - name: Import playbook
   import_playbook: time.yaml
