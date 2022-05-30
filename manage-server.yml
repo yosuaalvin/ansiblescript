@@ -69,12 +69,13 @@
   tasks:
     - name: Stop and disable httpd, firewalld, sshd
       service:
-        name:
-          - httpd
-          - firewalld
-          - openssh-server
+        name: {{ item }}
         state: enables
         enabled: True
+      loop:
+        - httpd
+        - firewalld
+        - openssh-server
 - name: Using Custom-motd Role
   roles:
     - custom-motd
