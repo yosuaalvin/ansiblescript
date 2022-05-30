@@ -67,10 +67,18 @@
 - name: Turn on httpd, firewalld, sshd in host not in production
   hosts: all:!production
   tasks:
-    - name: Stop and disable httpd, firewalld, sshd
+    - name: Install httpd,sshd,firewalld using yum not in production
+      yum:
+        name:
+          - httpd
+          - openssh-server
+          - firewalld
+        state: latest
+      when: ansible_distribution == 'RedHat'
+    - name: Start httpd, firewalld, sshd not in production
       service:
         name: "{{ item }}"
-        state: enables
+        state: started
         enabled: True
       loop:
         - httpd
