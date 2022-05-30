@@ -75,8 +75,10 @@
           - firewalld
         state: latest
       when: ansible_distribution == 'RedHat'
-    - name: Start httpd, firewalld, sshd not in production
-      service:
+- name: Start httpd, firewalld, sshd not in production
+  hosts: all:!production
+  tasks:
+    - service:
         name: "{{ item }}"
         state: started
         enabled: True
