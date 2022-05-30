@@ -75,5 +75,8 @@
           - openssh-server
         state: enables
         enabled: True
+- name: Using Custom-motd Role
+  roles:
+    - custom-motd
 - name: Import playbook
   import_playbook: time.yml
