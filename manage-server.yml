@@ -1,14 +1,14 @@
 ---
 - name: Create multiple local groups
   hosts: asia,ungrouped
-  vars_files:
-    - vars/users_vars.yml
+  become: true
+  vars:
+    mygroup: "unggas,reptil,sate"
   tasks:
     - name: Create group accounts
       ansible.builtin.group:
-        name: "{{ item.groups }}"
+        name: "{{ mygroup }}"
         state: present
-      loop: "{{ users }}"
 - name: Create multiple local users
   hosts: asia,ungrouped
   vars_files:
