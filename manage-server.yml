@@ -75,18 +75,30 @@
           - firewalld
         state: latest
       when: ansible_distribution == 'RedHat'
-- name: Start httpd, firewalld, sshd not in production
+- name: Start httpd not in production
+  hosts: all:!production
   tasks:
-    - name: Start httpd, firewalld, sshd not in production
-      hosts: all:!production
+    - name: Start httpd not in production    
       service:
-        name: "{{ item }}"
+        name: httpd
         state: started
         enabled: True
-      loop:
-        - httpd
-        - firewalld
-        - sshd
+- name: Start firewalld not in production
+  hosts: all:!production
+  tasks:
+    - name: Start firewalld not in production   
+      service:
+        name: firewalld
+        state: started
+        enabled: True
+- name: Start sshd not in production
+  hosts: all:!production
+  tasks:
+    - name: Start sshd not in production   
+      service:
+        name: sshd
+        state: started
+        enabled: True
 - name: Using Custom-motd Role
   roles:
     - custom-motd
