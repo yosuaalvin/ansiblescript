@@ -25,7 +25,7 @@
   tasks:
     - name: Install Development Tools when supported
       yum:
-        name: @development_tools
+        name: "@development_tools"
         state: present
         update_cache: yes
       when: ansible_distribution == 'RedHat'
@@ -46,8 +46,8 @@
         state: latest
       when: ansible_distribution == 'RedHat'
 - name: Install package tmux in production host
-  hosts: development
-  asks:
+  hosts: production
+  tasks:
     - name: Install tmux where supported
       yum:
         name: tmux
