@@ -100,7 +100,9 @@
         state: started
         enabled: True
 - name: Using Custom-motd Role
+  hosts: all:!production
   roles:
     - custom-motd
 - name: Import playbook
+  hosts: all:!production
   import_playbook: time.yml
