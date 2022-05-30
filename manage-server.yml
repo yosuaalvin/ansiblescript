@@ -69,7 +69,7 @@
   tasks:
     - name: Stop and disable httpd, firewalld, sshd
       service:
-        name: {{ item }}
+        name: "{{ item }}"
         state: enables
         enabled: True
       loop:
