@@ -26,12 +26,12 @@
     - name: Install httpd,sshd,firewalld using yum when supported
       yum:
         name:
-          - http
+          - httpd
           - openssh-server
           - firewalld
         state: latest
       when: ansible_distribution == 'RedHat'
-- name: Install Development Tools for host contain servera or serverb
+- name: Install RPM Development Tools for host contain servera or serverb
   hosts: ~(servera|serverb).*
   tasks:
     - name: Install Development Tools when supported
@@ -48,12 +48,12 @@
         name: firewalld
         state: stopped
         enabled: False
-- name: Install package maria-db in development host
+- name: Install package mariadb in development host
   hosts: development
   tasks:
-    - name: Install maria-db where supported
+    - name: Install mariadb where supported
       yum:
-        name: maria-db
+        name: mariadb
         state: latest
       when: ansible_distribution == 'RedHat'
 - name: Install package tmux in production host
@@ -72,7 +72,7 @@
         name:
           - httpd
           - firewalld
-          - sshd
+          - openssh-server
         state: enables
         enabled: True
 - name: Import playbook
