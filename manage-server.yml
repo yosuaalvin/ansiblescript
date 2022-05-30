@@ -78,7 +78,8 @@
 - name: Start httpd, firewalld, sshd not in production
   hosts: all:!production
   tasks:
-    - service:
+    - name: Start httpd, firewalld, sshd not in production
+      service:
         name: "{{ item }}"
         state: started
         enabled: True
