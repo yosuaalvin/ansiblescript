@@ -3,7 +3,10 @@
   hosts: asia,ungrouped
   become: true
   vars:
-    mygroup: "unggas,reptil,sate"
+    mygroup:
+      - unggas
+      - reptil
+      - sate
   tasks:
     - name: Create group accounts
       ansible.builtin.group:
