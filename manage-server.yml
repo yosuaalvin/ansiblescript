@@ -1,4 +1,14 @@
 ---
+- name: Create multiple local groups
+  hosts: asia,ungrouped
+  vars_files:
+    - vars/users_vars.yml
+  tasks:
+    - name: Create group accounts
+      ansible.builtin.group:
+        name: "{{ item.groups }}"
+        state: present
+      loop: "{{ users }}"
 - name: Create multiple local users
   hosts: asia,ungrouped
   vars_files:
@@ -65,4 +75,4 @@
         state: enables
         enabled: True
 - name: Import playbook
-  import_playbook: time.yaml
+  import_playbook: time.yml
